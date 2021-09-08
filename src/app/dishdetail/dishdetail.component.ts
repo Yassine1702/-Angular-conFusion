@@ -94,12 +94,20 @@ export class DishdetailComponent implements OnInit {
     }
   }
   onSubmit(){
+    this.dish.comments.push({
+      rating: this.form.get("slider")?.value,
+      comment: this.form.get("comment")?.value,
+      author : this.form.get("name")?.value,
+      date : ""+new Date().getDate()
+        })
     // reset form
     this.form.reset({
       name:"",
       comment:""
     });
     this.feedbackFormDirective.resetForm();
+   
   }
+  
 }
     
