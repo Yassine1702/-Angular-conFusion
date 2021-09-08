@@ -38,7 +38,7 @@
         <mat-list-item *ngFor="let item of dish.comments"> 
             <div mat-line> {{item.comment}} </div> 
             <div mat-line> {{item.rating}} Star</div> 
-            <div mat-line> -- {{item.author}} {{item.date | date}} </div>
+            <div mat-line> -- {{item.author}} ,{{item.date | date}} </div>
         </mat-list-item>
     </mat-list>
  
@@ -52,7 +52,7 @@
                 </mat-form-field>
             </p>
             <p>
-                <mat-slider formControlName="slider" min="0" max="5" step="1" value="5" thumbLabel></mat-slider>
+                <mat-slider formControlName="slider" min="0" max="5" step="1" value="5" thumbLabel (input)="sliderValue($event)"></mat-slider>
             </p>
             <p>
                 <mat-form-field>

@@ -14,6 +14,8 @@ import { NgForm } from '@angular/forms';
 })
 export class DishdetailComponent implements OnInit {
    /** @Input()*/ 
+   event !: any;
+   slidervalue!: number;
    form !:FormGroup;
     dish !: Dish;
     dishIds!: string [];
@@ -93,9 +95,12 @@ export class DishdetailComponent implements OnInit {
       }
     }
   }
+  sliderValue(event:any){
+    this.slidervalue = +event.value;
+  }
   onSubmit(){
     this.dish.comments.push({
-      rating: this.form.get("slider")?.value,
+      rating:   this.slidervalue,
       comment: this.form.get("comment")?.value,
       author : this.form.get("name")?.value,
       date : ""+new Date().getDate()
