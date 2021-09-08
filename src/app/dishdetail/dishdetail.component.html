@@ -34,15 +34,14 @@
    <div fxFlex="40" *ngIf="dish">
     
     <div mat-subheader ><h3>Comments</h3></div>
-    <mat-list  >
+    <mat-list >
         <mat-list-item *ngFor="let item of dish.comments"> 
             <div mat-line> {{item.comment}} </div> 
             <div mat-line> {{item.rating}} Star</div> 
             <div mat-line> -- {{item.author}} {{item.date | date}} </div>
         </mat-list-item>
     </mat-list>
-    </div>
-    <div>
+ 
         <form novalidate [formGroup]="form" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>
                 <mat-form-field>
@@ -51,7 +50,9 @@
                         {{formErrors.name}}
                     </mat-error>
                 </mat-form-field>
-              
+            </p>
+            <p>
+                <mat-slider min="0" max="5" step="1" value="5" thumbLabel></mat-slider>
             </p>
             <p>
                 <mat-form-field>
@@ -61,6 +62,9 @@
             </p>
             <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="form.invalid">Submit</button>
         </form>
-    </div>
 
+    </div>
+  
+        
+    
 </div>
