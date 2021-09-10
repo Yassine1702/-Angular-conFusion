@@ -14,7 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class DishdetailComponent implements OnInit {
    /** @Input()*/ 
-   event !: any;
+  // event !: any;
    slidervalue!: number;
    form !:FormGroup;
     dish !: Dish;
@@ -86,9 +86,9 @@ export class DishdetailComponent implements OnInit {
        if(control && control.dirty && !control.valid){ // verifying the state of the control
          const messages = this.validationMessages[field]; // retreiving the error message
           for(const key in control.errors){
-            if(control.errors.hasOwnProperty(key)){
+           // if(control.errors.hasOwnProperty(key)){
               this.formErrors[field] += messages[key] +"";
-            }
+          // }
           }
         }
 
@@ -99,19 +99,33 @@ export class DishdetailComponent implements OnInit {
     this.slidervalue = +event.value;
   }
   onSubmit(){
+    
+
+   let slider_value = this.form.get("slider")?.value;
+   if(slider_value == null){
+        slider_value = 5; // default high rating is 5 stars
+      }
     this.dish.comments.push({
-      rating:   this.slidervalue,
+     
+      rating: slider_value,
+      // rating : this.form.get("slider"?.value),
       comment: this.form.get("comment")?.value,
-      author : this.form.get("name")?.value,
+     // author : this.form.get("name")?.value,
+     author : this.form.get("name")?.value,
       date : ""+new Date().getDate()
         })
+        
+       /* another way to implement it, but slider doesn't return the default value 
+    let form = this.form.value;
+    
+    this.dish.comments.push({rating: form.slider, comment: form.comment, author: form.name, date: Date()})
+      */
     // reset form
     this.form.reset({
       name:"",
       comment:""
     });
     this.feedbackFormDirective.resetForm();
-   
   }
   
 }

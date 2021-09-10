@@ -7,7 +7,7 @@
     fxLayoutGap="10px" 
     fxLayoutGap.xs="0">
 
-   <div fxFlex="40" *ngIf="dish">
+   <div fxFlex="40" *ngIf="dish"  >
     <mat-card>
         <mat-card-header>
             <mat-card-title>
@@ -31,7 +31,8 @@
     </mat-card>
    </div>
    <div [hidden]="dish"><mat-spinner></mat-spinner><h4>Loading ... Please Wait ! </h4></div>
-   <div fxFlex="40" *ngIf="dish">
+  
+   <div fxFlex="40" *ngIf="dish" fxLayout="column" fxLayoutAlign="center ">
     
     <div mat-subheader ><h3>Comments</h3></div>
     <mat-list >
@@ -42,9 +43,10 @@
         </mat-list-item>
     </mat-list>
  
-        <form novalidate [formGroup]="form" #fform="ngForm" (ngSubmit)="onSubmit()">
+         <h3>Send us your Feedback</h3>
+         <form novalidate [formGroup]="form" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>
-                <mat-form-field>
+                <mat-form-field class="full-width">
                     <input matInput formControlName="name" placeholder="Name" type="text" required>
                     <mat-error *ngIf="formErrors.name">
                         {{formErrors.name}}
@@ -52,19 +54,21 @@
                 </mat-form-field>
             </p>
             <p>
-                <mat-slider formControlName="slider" min="0" max="5" step="1" value="5" thumbLabel (input)="sliderValue($event)"></mat-slider>
+                <!-- mat-slider causes problem, the page doesn't load correctly until i click on an input field-->
+                <mat-slider formControlName="slider" min="0" max="5" step="1" value="5" thumbLabel ></mat-slider>
             </p>
+                
             <p>
-                <mat-form-field>
+                <mat-form-field class="full-width">
                     <textarea matInput formControlName="comment" placeholder="Comment" rows=12></textarea>
                     <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
                 </mat-form-field>
             </p>
-            <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="form.invalid">Submit</button>
+            
+            <button type="submit" mat-button class="background-primary text-floral-white" >Submit</button>
         </form>
+     </div>
 
     </div>
   
-        
     
-</div>
