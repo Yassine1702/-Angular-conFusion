@@ -22,6 +22,7 @@ export class DishdetailComponent implements OnInit {
     next!: string;
     previous!:string;
     baseurl!:URL;
+    errMess!:string;
     @ViewChild("fform") feedbackFormDirective !:NgForm ;
 
     formErrors : any ={
@@ -60,7 +61,8 @@ export class DishdetailComponent implements OnInit {
         (params: Params) => this.dishservice.getDish(params['id'])
                 )
         
-                            ).subscribe((dish) =>{this.dish =  dish; this.setPrevNext(dish.id);});  
+                            ).subscribe((dish) =>{this.dish =  dish; this.setPrevNext(dish.id);}
+                            , errmess => this.errMess = <any>errmess );  
   }
   setPrevNext(dishId:string){
       const index = this.dishIds.indexOf(dishId);
