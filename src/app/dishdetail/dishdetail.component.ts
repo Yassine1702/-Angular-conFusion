@@ -12,9 +12,12 @@ import { NgForm } from '@angular/forms';
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss']
 })
+
+
 export class DishdetailComponent implements OnInit {
    /** @Input()*/ 
   // event !: any;
+  
    slidervalue!: number;
    form !:FormGroup;
     dish !: Dish;
@@ -23,6 +26,7 @@ export class DishdetailComponent implements OnInit {
     previous!:string;
     baseurl!:URL;
     errMess!:string;
+    dishcopy!:Dish;
     @ViewChild("fform") feedbackFormDirective !:NgForm ;
 
     formErrors : any ={
@@ -61,7 +65,7 @@ export class DishdetailComponent implements OnInit {
         (params: Params) => this.dishservice.getDish(params['id'])
                 )
         
-                            ).subscribe((dish) =>{this.dish =  dish; this.setPrevNext(dish.id);}
+                            ).subscribe((dish) =>{this.dish =  dish;this.dishcopy=dish; this.setPrevNext(dish.id);}
                             , errmess => this.errMess = <any>errmess );  
   }
   setPrevNext(dishId:string){
@@ -109,7 +113,7 @@ export class DishdetailComponent implements OnInit {
    if(slider_value == null){
         slider_value = 5; // default high rating is 5 stars
       }
-    this.dish.comments.push({
+    this.dishcopy.comments.push({
      
       rating: slider_value,
       // rating : this.form.get("slider"?.value),
@@ -124,6 +128,13 @@ export class DishdetailComponent implements OnInit {
     
     this.dish.comments.push({rating: form.slider, comment: form.comment, author: form.name, date: Date()})
       */
+
+    this.dishservice.putDish(this.dishcopy).subscribe(
+      dish => {
+        this.dish = dish;
+        this.dishcopy = dish;
+      },
+      errmess => {   this.errMess = <any> errmess;})
     // reset form
     this.form.reset({
       name:"",
